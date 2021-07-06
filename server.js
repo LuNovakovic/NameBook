@@ -1,19 +1,27 @@
 const express = require('express');
 const connectDB = require('./config/db');
+const path = require('path');
 
 
 const app = express();
+
 app.use(express.json());
 
 // Connect Database
 connectDB();
 
-app.get('/', (req, res) => 
-res.json({ msg: 'Welcome to NameBook API...' })
-);
 
 // Define Routes
 app.use('/api/contacts', require('./routes/contacts'));
+
+// Serve static assets in production 
+if(process.env.NODE_ENV === 'production') {
+    // Set static folder
+    app.use(express.static('client/build'));
+
+    app.get('*', (req, res) => res.sendFile(path.resolve(_dirname, 'client', 'build',
+    'index.html')));
+}
 
 
 const PORT = process.env.PORT || 6000;
