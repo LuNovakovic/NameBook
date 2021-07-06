@@ -14,28 +14,17 @@ const ContactItem = ({ contact }) => {
     }
 
     return (
-        <div className='card bg-light'>
-            <h3 className="text-primary text-left">
-                {name}
-                </h3> 
-                <h3 className="text-primary text-left">
-                {lastname}
-                </h3> 
-                <ul className="list">
-                    {email && (<li>
-                        <i className="fas fa-envelope-open"></i> {email}
-                    </li>)}
-                    {phone && (<li>
-                        <i className="fas fa-phone"></i> {phone}
-                    </li>)}
-                </ul>
-                <p>
-                    <button className="btn btn-dark btn-sm" onClick={() => setCurrent(contact)}>Edit</button>
-                    <button className="btn btn-danger btn-sm" onClick={onDelete}><i class="fas fa-trash"></i></button>
-                    
-                </p>
-            
-        </div>
+        <tr>
+            <td>{name}</td>
+            <td>{lastname}</td>
+            <td>{email}</td>
+            <td>{phone}</td>
+            <td>
+                <button className="btn btn-dark btn-sm" onClick={() => setCurrent(contact)}>Edit</button>
+                &nbsp;
+                <button className="btn btn-danger btn-sm" onClick={onDelete}><i class="fas fa-trash"></i></button>
+            </td>
+        </tr>
     )
 };
 
