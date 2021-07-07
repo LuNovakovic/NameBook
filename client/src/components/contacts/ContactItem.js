@@ -1,16 +1,20 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import ContactContext from '../../context/contact/contactContext';
+import store from '../../store';
+import { clearCurrent, deleteContact, setCurrent } from '../../actions/contactAction';
 
 const ContactItem = ({ contact }) => {
-    const contactContext = useContext(ContactContext);
-    const { deleteContact, setCurrent, clearCurrent } = contactContext;
+    
 
     const { _id, name, lastname, email, phone } = contact;
 
     const onDelete = () => {
-        deleteContact(_id);
-        clearCurrent();
+        store.dispatch(deleteContact(_id));
+        store.dispatch(clearCurrent());
+    }
+
+    const onEdit = () => {
+        store.dispatch(setCurrent(contact))
     }
 
     return (
@@ -20,9 +24,9 @@ const ContactItem = ({ contact }) => {
             <td>{email}</td>
             <td>{phone}</td>
             <td>
-                <button className="btn btn-dark btn-sm" onClick={() => setCurrent(contact)}>Edit</button>
+                <button className="btn btn-dark btn-sm" onClick={onEdit}>Edit</button>
                 &nbsp;
-                <button className="btn btn-danger btn-sm" onClick={onDelete}><i class="fas fa-trash"></i></button>
+                <button className="btn btn-danger btn-sm" onClick={onDelete}><i className="fas fa-trash"></i></button>
             </td>
         </tr>
     )

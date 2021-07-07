@@ -7,12 +7,10 @@ import About from './components/pages/About';
 import { Provider } from 'react-redux';
 import store from './store';
 
-import ContactState from './context/contact/ContactState';
 
 const App = () => {
   return (
     <Provider store={store}>
-    <ContactState>
     <Router>
     <Fragment>
       <Navbar/>
@@ -24,7 +22,6 @@ const App = () => {
       </div>
     </Fragment>
     </Router>
-    </ContactState>
     </Provider>
   );
 }

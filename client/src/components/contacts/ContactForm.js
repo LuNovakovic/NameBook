@@ -1,10 +1,10 @@
-import React, { useState, useContext, useEffect } from 'react'
-import ContactContext from '../../context/contact/contactContext';
+import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux';
+import store from '../../store';
+import { addContact, clearCurrent, updateContact } from '../../actions/contactAction';
 
 const ContactForm = () => {
-    const contactContext = useContext(ContactContext);
-
-    const { addContact, updateContact, clearCurrent, current } = contactContext;
+    const current = useSelector(state => state.contact.current)
 
     useEffect(() => {
         if(current !== null) {
@@ -18,7 +18,7 @@ const ContactForm = () => {
            });
             
         }
-    }, [contactContext, current]);
+    }, [current]);
 
     const [contact, setContact] = useState({
         name: '',
@@ -34,16 +34,16 @@ const ContactForm = () => {
     const onSubmit = e => {
         e.preventDefault();
         if (current === null) {
-            addContact(contact);
+            store.dispatch(addContact(contact));
         } else {
-            updateContact(contact);
+            store.dispatch(updateContact(contact));
         }
         clearAll();
      
     };
 
     const clearAll = () => {
-        clearCurrent();
+        store.dispatch(clearCurrent());
     }
 
     return (

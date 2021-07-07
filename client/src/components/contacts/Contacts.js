@@ -1,18 +1,17 @@
-import React, { Fragment, useContext, useEffect } from 'react'
-import { connect } from 'react-redux'
-import ContactContext from '../../context/contact/contactContext';
+import React, { useEffect } from 'react'
+import { connect, useSelector } from 'react-redux'
 import ContactItem from './ContactItem';
-import Spinner from '../layout/Spinner';
+import {Spinner} from '../layout/Spinner';
 import PropTypes from 'prop-types';
 import { getContacts } from '../../actions/contactAction';
+import store from '../../store';
 
-const Contacts = ({ contact: {contacs} }) => {
-    const contactContext = useContext(ContactContext);
-
-    const { contacts, getContacts, loading } = contactContext;
+const Contacts = () => {
+   const contacts = useSelector(state => state.contact.contacts)
+   const loading = useSelector(state => state.contact.loading)
 
     useEffect(() => {
-        getContacts();
+        store.dispatch (getContacts());
         // eslint-disable-next-line
     }, []);
     
@@ -57,10 +56,6 @@ const mapStateToProps = state => ({
     contact: state.contact
 });
 
-function mapDispatchToProps(dispatch) {
-    return {
-        
-    }
-}
+
 
 export default connect(mapStateToProps, { getContacts })(Contacts);
