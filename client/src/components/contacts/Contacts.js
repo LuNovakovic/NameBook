@@ -1,9 +1,12 @@
 import React, { Fragment, useContext, useEffect } from 'react'
+import { connect } from 'react-redux'
 import ContactContext from '../../context/contact/contactContext';
 import ContactItem from './ContactItem';
 import Spinner from '../layout/Spinner';
+import PropTypes from 'prop-types';
+import { getContacts } from '../../actions/contactAction';
 
-const Contacts = () => {
+const Contacts = ({ contact: {contacs} }) => {
     const contactContext = useContext(ContactContext);
 
     const { contacts, getContacts, loading } = contactContext;
@@ -46,4 +49,18 @@ const Contacts = () => {
 
 }
 
-export default Contacts
+
+Contacts.propTypes = {
+    contact: PropTypes.object.isRequired,
+}
+const mapStateToProps = state => ({
+    contact: state.contact
+});
+
+function mapDispatchToProps(dispatch) {
+    return {
+        
+    }
+}
+
+export default connect(mapStateToProps, { getContacts })(Contacts);

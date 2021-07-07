@@ -4,11 +4,14 @@ import React, { Fragment } from 'react';
 import Navbar from './components/layout/Navbar';
 import Home from './components/pages/Home';
 import About from './components/pages/About';
+import { Provider } from 'react-redux';
+import store from './store';
 
 import ContactState from './context/contact/ContactState';
 
 const App = () => {
   return (
+    <Provider store={store}>
     <ContactState>
     <Router>
     <Fragment>
@@ -22,6 +25,7 @@ const App = () => {
     </Fragment>
     </Router>
     </ContactState>
+    </Provider>
   );
 }
 
